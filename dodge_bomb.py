@@ -12,6 +12,17 @@ DELTA={pg.K_UP:    (0, -5),
        }
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+kk_dict = {
+    (0,0): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 1.0),
+    (-5,-5): pg.transform.rotozoom(pg.image.load("fig/3.png"), 45, 1.0),
+    (-5,0): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 1.0),
+    (-5,+5): pg.transform.rotozoom(pg.image.load("fig/3.png"), -45, 1.0),
+    (0,+5): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), False, True), 90, 1.0),
+    (+5,+5): pg.transform.rotozoom(pg.image.load("fig/3.png"), -125, 1.0),
+    (+5,0): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), True, False), 0, 1.0),
+    (+5,-5): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 1.0),
+    (0,-5): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 1.0),
+}
 
 def check_bound(rct:pg.Rect) -> tuple[bool, bool]:
     """
@@ -61,10 +72,8 @@ def  init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
         bb_img.set_colorkey((0, 0, 0))
         pg.draw.circle(bb_img, (255, 0, 0), (10*r, 10*r), 10*r)
         bb_imgs.append(bb_img)
-        
-    
+            
     return bb_imgs, bbaccs
-
 
 
 def main():
@@ -103,15 +112,9 @@ def main():
         elif check_bound(bb_rct) == (True, False):
             vy *= -1
         screen.blit(bb_img, bb_rct)
-                #爆弾拡大加速
-
-        
-
         #ゲームオーバー画面
         if kk_rct.colliderect(bb_rct):
             gameover(screen)
-
-        
 
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
@@ -137,8 +140,7 @@ def main():
         pg.display.update()
         tmr += 1
         clock.tick(50)
-        
-
+    
 
 if __name__ == "__main__":
     pg.init()
