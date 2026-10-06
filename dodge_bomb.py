@@ -16,12 +16,12 @@ kk_dict = {
     (0,0): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 1.0),
     (-5,-5): pg.transform.rotozoom(pg.image.load("fig/3.png"), 45, 1.0),
     (-5,0): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 1.0),
-    (-5,+5): pg.transform.rotozoom(pg.image.load("fig/3.png"), -45, 1.0),
+    (-5,+5): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), True, True), -125, 1.0),
     (0,+5): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), False, True), 90, 1.0),
-    (+5,+5): pg.transform.rotozoom(pg.image.load("fig/3.png"), -125, 1.0),
+    (+5,+5): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), False,True), 125, 1.0),
     (+5,0): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), True, False), 0, 1.0),
-    (+5,-5): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 1.0),
-    (0,-5): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 1.0),
+    (+5,-5): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), False, True), 125, 1.0),
+    (0,-5): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), True, False), 90, 1.0),
 }
 
 def check_bound(rct:pg.Rect) -> tuple[bool, bool]:
@@ -136,6 +136,9 @@ def main():
         if check_bound(kk_rct) != (True, True):
             kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
         screen.blit(kk_img, kk_rct)
+
+        kk_imgs = kk_dict
+        kk_img = kk_imgs[tuple(sum_mv)]
 
         pg.display.update()
         tmr += 1
