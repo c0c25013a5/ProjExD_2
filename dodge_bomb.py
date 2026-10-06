@@ -5,10 +5,10 @@ import random
 import time 
 
 WIDTH, HEIGHT = 1100, 650
-DELTA={pg.K_UP:    (0, -10),
-       pg.K_DOWN:  (0, +10),
-       pg.K_LEFT:  (-10, 0),
-       pg.K_RIGHT: (+10, 0),
+DELTA={pg.K_UP:    (0, -5),
+       pg.K_DOWN:  (0, +5),
+       pg.K_LEFT:  (-5, 0),
+       pg.K_RIGHT: (+5, 0),
        }
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -56,9 +56,13 @@ def  init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
     bb_imgs = []
     bbaccs = [a for a in range(1,11)]
     for r in range(1,11):
+        
         bb_img = pg.Surface((20*r, 20*r))
+        bb_img.set_colorkey((0, 0, 0))
         pg.draw.circle(bb_img, (255, 0, 0), (10*r, 10*r), 10*r)
         bb_imgs.append(bb_img)
+        
+    
     return bb_imgs, bbaccs
 
 
